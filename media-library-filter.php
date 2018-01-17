@@ -1,30 +1,30 @@
 <?php
-/**
- * Plugin Name: Media Library Filter
- * Description: Filter the media in your library by the post type and taxonomy of which they are associated.
- * Author: datafeedr.com
- * Author URI: http://www.datafeedr.com
- * Plugin URI: http://www.datafeedr.com
- * License: GPLv2 or later
- * Requires at least: 4.4
- * Tested up to: 4.9.1
- * Version: 1.0.0
- *
- * Datafeedr API Plugin
- * Copyright (C) 2017, Datafeedr - help@datafeedr.com
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+/*
+Plugin Name: Media Library Filter
+Description: Filter the media in your library by the post type and taxonomy of which they are associated.
+Author: datafeedr.com
+Author URI: http://www.datafeedr.com
+Plugin URI: http://www.datafeedr.com
+License: GPLv2 or later
+Requires at least: 4.4
+Tested up to: 4.9.2
+Version: 1.0.1
+
+Datafeedr API Plugin
+Copyright (C) 2018, Datafeedr - help@datafeedr.com
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 // Exit if accessed directly
@@ -35,7 +35,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define constants.
  */
-define( 'MLF_VERSION', '1.0.0' );
+define( 'MLF_VERSION', '1.0.1' );
 define( 'MLF_URL', plugin_dir_url( __FILE__ ) );
 define( 'MLF_PATH', plugin_dir_path( __FILE__ ) );
 define( 'MLF_BASENAME', plugin_basename( __FILE__ ) );
@@ -101,7 +101,8 @@ function mlf_action_links( $links ) {
 	return array_merge(
 		$links,
 		array(
-			'filtermedia' => '<a href="' . add_query_arg( array( 'mode' => 'list' ), admin_url( 'upload.php' ) ) . '">' . __( 'Filter Media', MLF_DOMAIN ) . '</a>',
+			'filtermedia' => '<a href="' . add_query_arg( array( 'mode' => 'list' ),
+					admin_url( 'upload.php' ) ) . '">' . __( 'Filter Media', MLF_DOMAIN ) . '</a>',
 		)
 	);
 }
@@ -224,8 +225,10 @@ function mlf_dropdowns() {
 		if ( in_array( $taxonomy->name, $ignored_taxonomies ) ) {
 			continue;
 		}
-		$tax = get_taxonomy( $taxonomy->name );
-		$html .= '<option class="level-0" value="' . $taxonomy->name . '"' . selected( $selected_taxonomy, $taxonomy->name, false ) . '>' . $tax->label . ' (' . $taxonomy->total . ' ' . __( 'items', MLF_DOMAIN ) . ')</option>';
+		$tax  = get_taxonomy( $taxonomy->name );
+		$html .= '<option class="level-0" value="' . $taxonomy->name . '"' . selected( $selected_taxonomy,
+				$taxonomy->name, false ) . '>' . $tax->label . ' (' . $taxonomy->total . ' ' . __( 'items',
+				MLF_DOMAIN ) . ')</option>';
 	}
 	$html .= '</select>';
 
@@ -245,7 +248,9 @@ function mlf_dropdowns() {
 			$html .= '<select name="mlf_term_id" id="mlf_term_dd" class="postform">';
 			$html .= '<option value="">' . __( 'All terms', MLF_DOMAIN ) . '</option>';
 			foreach ( $terms as $term ) {
-				$html .= '<option class="level-0" value="' . $term->term_id . '"' . selected( $selected_term_id, $term->term_id, false ) . '>' . $term->name . ' (' . $term->total . ' ' . __( 'items', MLF_DOMAIN ) . ')</option>';
+				$html .= '<option class="level-0" value="' . $term->term_id . '"' . selected( $selected_term_id,
+						$term->term_id, false ) . '>' . $term->name . ' (' . $term->total . ' ' . __( 'items',
+						MLF_DOMAIN ) . ')</option>';
 			}
 			$html .= '</select>';
 		}
