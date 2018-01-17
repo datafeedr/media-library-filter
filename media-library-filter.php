@@ -7,7 +7,7 @@
  * Plugin URI: http://www.datafeedr.com
  * License: GPLv2 or later
  * Requires at least: 4.4
- * Tested up to: 4.9
+ * Tested up to: 4.9.1
  * Version: 1.0.0
  *
  * Datafeedr API Plugin
