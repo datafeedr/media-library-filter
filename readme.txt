@@ -5,8 +5,8 @@ Tags: media, library, filter, terms, taxonomy, menu, category, categories
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.4
-Tested up to: 5.2
-Stable tag: 1.0.5
+Tested up to: 5.3
+Stable tag: 1.0.6
 
 Filter the media in your library by the taxonomies and terms with which they are associated.
 
@@ -49,6 +49,9 @@ No.
 1. Screenshot of the taxonomy and term filters on the Media Library page.
 
 == Changelog ==
+
+= 1.0.6 - 2019/11/12 =
+* Updated readme.
 
 = 1.0.5 - 2019/05/06 =
 * Updated readme.
