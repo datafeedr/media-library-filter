@@ -7,11 +7,11 @@ Author URI: http://www.datafeedr.com
 Plugin URI: http://www.datafeedr.com
 License: GPLv2 or later
 Requires at least: 4.4
-Tested up to: 5.3
-Version: 1.0.6
+Tested up to: 5.4
+Version: 1.0.7
 
 Datafeedr API Plugin
-Copyright (C) 2019, Datafeedr - help@datafeedr.com
+Copyright (C) 2020, Datafeedr - help@datafeedr.com
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -35,7 +35,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define constants.
  */
-define( 'MLF_VERSION', '1.0.6' );
+define( 'MLF_VERSION', '1.0.7' );
 define( 'MLF_URL', plugin_dir_url( __FILE__ ) );
 define( 'MLF_PATH', plugin_dir_path( __FILE__ ) );
 define( 'MLF_BASENAME', plugin_basename( __FILE__ ) );
