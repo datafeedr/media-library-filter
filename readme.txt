@@ -5,8 +5,8 @@ Tags: media, library, filter, terms, taxonomy, menu, category, categories
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.4
-Tested up to: 5.4
-Stable tag: 1.0.7
+Tested up to: 5.6-beta
+Stable tag: 1.0.8
 
 Filter the media in your library by the taxonomies and terms with which they are associated.
 
@@ -49,6 +49,11 @@ No.
 1. Screenshot of the taxonomy and term filters on the Media Library page.
 
 == Changelog ==
+
+= 1.0.8 - 2020/11/03 =
+* Fixed PHP Notice: Trying to access array offset on value of type bool in ~/wp-content/plugins/media-library-filter/media-library-filter.php on line 421
+* Fixed PHP Notice:  Trying to access array offset on value of type bool in ~/wp-content/plugins/media-library-filter/media-library-filter.php on line 422
+* Fixed PHP Notice:  Trying to get property 'label' of non-object in ~/wp-content/plugins/media-library-filter/media-library-filter.php on line 230
 
 = 1.0.7 - 2020/03/11 =
 * Updated readme.

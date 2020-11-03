@@ -7,8 +7,8 @@ Author URI: http://www.datafeedr.com
 Plugin URI: http://www.datafeedr.com
 License: GPLv2 or later
 Requires at least: 4.4
-Tested up to: 5.4
-Version: 1.0.7
+Tested up to: 5.6-beta
+Version: 1.0.8
 
 Datafeedr API Plugin
 Copyright (C) 2020, Datafeedr - help@datafeedr.com
@@ -35,7 +35,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define constants.
  */
-define( 'MLF_VERSION', '1.0.7' );
+define( 'MLF_VERSION', '1.0.8' );
 define( 'MLF_URL', plugin_dir_url( __FILE__ ) );
 define( 'MLF_PATH', plugin_dir_path( __FILE__ ) );
 define( 'MLF_BASENAME', plugin_basename( __FILE__ ) );
@@ -112,13 +112,13 @@ function mlf_action_links( $links ) {
  *
  * This adds additional JOIN statements to get term information for the queried attachments.
  *
+ * @param string $sql Current string of JOINs.
+ *
+ * @return string More SQL.
  * @since 1.0.0
  *
  * @global object $wpdb Database class.
  *
- * @param string $sql Current string of JOINs.
- *
- * @return string More SQL.
  */
 add_filter( 'posts_join', 'mlf_join' );
 function mlf_join( $sql ) {
@@ -155,13 +155,13 @@ function mlf_join( $sql ) {
  *
  * This adds a GROUP BY statement to the queried attachments.
  *
+ * @param string $groupby Current $groupby.
+ *
+ * @return string Modified GROUP BY string.
  * @since 1.0.0
  *
  * @global object $wpdb Database class.
  *
- * @param string $groupby Current $groupby.
- *
- * @return string Modified GROUP BY string.
  */
 add_filter( 'posts_groupby', 'mlf_groupby' );
 function mlf_groupby( $groupby ) {
@@ -191,9 +191,9 @@ function mlf_groupby( $groupby ) {
  * listing all of the available taxonomies and their respective terms if a taxonomy
  * is selected..
  *
+ * @return string HTML to display the dropdown menus.
  * @since 1.0.0
  *
- * @return string HTML to display the dropdown menus.
  */
 add_action( 'restrict_manage_posts', 'mlf_dropdowns' );
 function mlf_dropdowns() {
@@ -222,10 +222,17 @@ function mlf_dropdowns() {
 	$html .= '<select name="mlf_taxonomy" id="mlf_taxonomy_dd" class="postform">';
 	$html .= '<option value="">' . __( 'All taxonomies', MLF_DOMAIN ) . '</option>';
 	foreach ( $taxonomies as $taxonomy ) {
+
 		if ( in_array( $taxonomy->name, $ignored_taxonomies ) ) {
 			continue;
 		}
-		$tax  = get_taxonomy( $taxonomy->name );
+
+		$tax = get_taxonomy( $taxonomy->name );
+
+		if ( ! $tax ) {
+			continue;
+		}
+
 		$html .= '<option class="level-0" value="' . $taxonomy->name . '"' . selected( $selected_taxonomy,
 				$taxonomy->name, false ) . '>' . $tax->label . ' (' . $taxonomy->total . ' ' . __( 'items',
 				MLF_DOMAIN ) . ')</option>';
@@ -264,11 +271,11 @@ function mlf_dropdowns() {
  *
  * Get all taxonomies given the current filters in place.
  *
- * @since 1.0.0
- *
+ * @return array Object containing all taxonomies returned in query.
  * @global object $wpdb DB class.
  *
- * @return array Object containing all taxonomies returned in query.
+ * @since 1.0.0
+ *
  */
 function mlf_get_taxonomies() {
 
@@ -306,13 +313,13 @@ function mlf_get_taxonomies() {
  *
  * Get all terms given the current filters in place and currently selected taxonomy.
  *
+ * @param string $taxonomy The currently selected taxonomy.
+ *
+ * @return array Object containing all terms returned in query.
  * @since 1.0.0
  *
  * @global object $wpdb DB class.
  *
- * @param string $taxonomy The currently selected taxonomy.
- *
- * @return array Object containing all terms returned in query.
  */
 function mlf_get_terms( $taxonomy ) {
 
@@ -355,9 +362,9 @@ function mlf_get_terms( $taxonomy ) {
  *
  * This returns the selected taxonomy type or false if no type is selected..
  *
+ * @return string|boolean Returns taxonomy type value or false if it does not exist.
  * @since 1.0.0
  *
- * @return string|boolean Returns taxonomy type value or false if it does not exist.
  */
 function mlf_get_selected_taxonomy() {
 	$type = filter_input( INPUT_GET, 'mlf_taxonomy', FILTER_SANITIZE_STRING );
@@ -374,9 +381,9 @@ function mlf_get_selected_taxonomy() {
  *
  * This returns the selected term ID or false if no term is selected..
  *
+ * @return string|boolean Returns term ID or false if it does not exist.
  * @since 1.0.0
  *
- * @return string|boolean Returns term ID or false if it does not exist.
  */
 function mlf_get_selected_term_id() {
 	$id = filter_input( INPUT_GET, 'mlf_term_id', FILTER_SANITIZE_NUMBER_INT );
@@ -393,9 +400,9 @@ function mlf_get_selected_term_id() {
  *
  * This returns the selected date or false if no term is selected..
  *
+ * @return array|boolean Returns date or false if it does not exist.
  * @since 1.0.0
  *
- * @return array|boolean Returns date or false if it does not exist.
  */
 function mlf_get_selected_date() {
 	$m = filter_input( INPUT_GET, 'm', FILTER_SANITIZE_NUMBER_INT );
@@ -410,16 +417,16 @@ function mlf_get_selected_date() {
 /**
  * Returns selected date in SQL format.
  *
+ * @return string Date to be used in SQL format.
  * @since 1.0.0
  *
- * @return string Date to be used in SQL format.
  */
 function mlf_get_date_sql() {
 
 	$selected_date = mlf_get_selected_date();
 
-	$y = esc_sql( $selected_date['y'] );
-	$m = esc_sql( $selected_date['m'] );
+	$y = isset( $selected_date['y'] ) ? esc_sql( $selected_date['y'] ) : date_i18n( 'Y' );
+	$m = isset( $selected_date['m'] ) ? esc_sql( $selected_date['m'] ) : date_i18n( 'm' );
 
 	return ( $selected_date ) ? " AND YEAR( child.post_date ) = $y AND MONTH( child.post_date ) = $m " : " ";
 }
@@ -427,11 +434,11 @@ function mlf_get_date_sql() {
 /**
  * Returns selected attachment filter in SQL format.
  *
- * @since 1.0.0
- *
+ * @return string attachment filter to be used in SQL format.
  * @global object $wpdb DB class.
  *
- * @return string attachment filter to be used in SQL format.
+ * @since 1.0.0
+ *
  */
 function mlf_get_attachment_filter_sql() {
 
@@ -458,11 +465,11 @@ function mlf_get_attachment_filter_sql() {
 /**
  * Returns current search query in SQL format.
  *
- * @since 1.0.0
- *
+ * @return string attachment filter to be used in SQL format.
  * @global object $wpdb DB class.
  *
- * @return string attachment filter to be used in SQL format.
+ * @since 1.0.0
+ *
  */
 function mlf_get_search_sql() {
 
@@ -483,9 +490,9 @@ function mlf_get_search_sql() {
 /**
  * Return array of taxonomies to ignore.
  *
+ * @return array Returns array of taxonomies that should be ignored (not listed in dropdown).
  * @since 1.0.0
  *
- * @return array Returns array of taxonomies that should be ignored (not listed in dropdown).
  */
 function mlf_ignored_taxonomies() {
 
