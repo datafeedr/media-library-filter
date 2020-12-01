@@ -7,8 +7,8 @@ Author URI: http://www.datafeedr.com
 Plugin URI: http://www.datafeedr.com
 License: GPLv2 or later
 Requires at least: 4.4
-Tested up to: 5.6-beta
-Version: 1.0.8
+Tested up to: 5.6
+Version: 1.0.9
 
 Datafeedr API Plugin
 Copyright (C) 2020, Datafeedr - help@datafeedr.com
@@ -35,7 +35,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define constants.
  */
-define( 'MLF_VERSION', '1.0.8' );
+define( 'MLF_VERSION', '1.0.9' );
 define( 'MLF_URL', plugin_dir_url( __FILE__ ) );
 define( 'MLF_PATH', plugin_dir_path( __FILE__ ) );
 define( 'MLF_BASENAME', plugin_basename( __FILE__ ) );
