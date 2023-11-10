@@ -5,8 +5,8 @@ Tags: media, library, filter, terms, taxonomy, menu, category, categories
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.4
-Tested up to: 5.7
-Stable tag: 1.0.10
+Tested up to: 6.4.2-alpha
+Stable tag: 1.0.11
 
 Filter the media in your library by the taxonomies and terms with which they are associated.
 
@@ -20,7 +20,9 @@ Plugin inspired by [answer on StackExchange](http://wordpress.stackexchange.com/
 
 **Limitation**
 
-The filters are only available when viewing your Media Library in "list" mode, not "grid" mode.
+The filters are only available when viewing your Media Library in ["list" mode, not "grid" mode](https://res.cloudinary.com/dpq5gf23t/image/upload/v1699630258/Plugins/list-mode_mobdn5.png).
+
+[View screenshot for more explanation](https://res.cloudinary.com/dpq5gf23t/image/upload/v1699630258/Plugins/list-mode_mobdn5.png).
 
 == Installation ==
 
@@ -49,6 +51,9 @@ No.
 1. Screenshot of the taxonomy and term filters on the Media Library page.
 
 == Changelog ==
+
+= 1.0.11 - 2020/11/10 =
+* Updated "tested up to" value
 
 = 1.0.10 - 2020/03/08 =
 * Update for WordPress 5.7.
