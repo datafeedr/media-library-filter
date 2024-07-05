@@ -1,12 +1,12 @@
 === Media Library Filter ===
 Contributors: datafeedr.com
 Donate link: http://www.datafeedr.com
-Tags: media, library, filter, terms, taxonomy, menu, category, categories
+Tags: media library, filter, terms, category, categories
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.4
-Tested up to: 6.4.2-alpha
-Stable tag: 1.0.11
+Tested up to: 6.6-RC2
+Stable tag: 1.0.12
 
 Filter the media in your library by the taxonomies and terms with which they are associated.
 
@@ -51,6 +51,9 @@ No.
 1. Screenshot of the taxonomy and term filters on the Media Library page.
 
 == Changelog ==
+
+= 1.0.12 - 2024/07/05 =
+* Updated "tested up to" value
 
 = 1.0.11 - 2020/11/10 =
 * Updated "tested up to" value
